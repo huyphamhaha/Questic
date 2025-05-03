@@ -11,13 +11,12 @@
     />
     <style>
       /* Additional Styles */
-
     </style>
   </head>
   <body>
     <div class="container">
       <!-- Back Button -->
-      <a href="./homepage/homepage.html" class="back-button">
+      <a href="../homepage/homepage.html" class="back-button">
         <i class="fas fa-arrow-left"></i>
         <span>Quay lại</span>
       </a>
@@ -102,7 +101,7 @@
             <div class="mode-details">
               <div class="mode-title">Phỏng vấn bằng Chat</div>
               <div class="mode-description">
-                Trả lời câu hỏi qua trò chuyện văn bản
+                Trả lời câu hỏi qua chat văn bản
               </div>
             </div>
           </div>
@@ -112,7 +111,7 @@
               <i class="fas fa-microphone-alt"></i>
             </div>
             <div class="mode-details">
-              <div class="mode-title">Phỏng vấn bằng Giọng nói</div>
+              <div class="mode-title">Phỏng vấn Giọng nói</div>
               <div class="mode-description">
                 Trả lời câu hỏi trực tiếp qua giọng nói
               </div>
@@ -128,7 +127,7 @@
               <i class="fa fa-spinner"></i>
             </div>
             <div class="mode-details">
-              <div class="mode-title">Phỏng vấn bằng Tương tác</div>
+              <div class="mode-title">Phỏng vấn Tương tác</div>
               <div class="mode-description">Đang phát triển....</div>
             </div>
           </div>
@@ -241,23 +240,26 @@
 
               <div id="voice-answer-section">
                 <div class="voice-answer-header">
-                    <h3>Câu trả lời của bạn:</h3>
-                    <div class="mic-status">
-                        <span id="mic-status-indicator">Chưa bắt đầu ghi âm</span>
-                    </div>
+                  <h3>Câu trả lời của bạn:</h3>
+                  <div class="mic-status">
+                    <span id="mic-status-indicator">Chưa bắt đầu ghi âm</span>
+                  </div>
                 </div>
                 <div class="voice-answer-container">
-                    <div id="voice-answer-text" contenteditable="true"></div>
+                  <div id="voice-answer-text" contenteditable="true"></div>
                 </div>
                 <div class="input-actions">
-                    <button id="repeat-question" class="btn btn-secondary btn-sm">
-                        <i class="fas fa-redo"></i> Lặp lại câu hỏi
-                    </button>
-                    <button id="clear-voice-answer" class="btn btn-secondary btn-sm">
-                        <i class="fas fa-eraser"></i> Xóa câu trả lời
-                    </button>
+                  <button id="repeat-question" class="btn btn-secondary btn-sm">
+                    <i class="fas fa-redo"></i> Lặp lại câu hỏi
+                  </button>
+                  <button
+                    id="clear-voice-answer"
+                    class="btn btn-secondary btn-sm"
+                  >
+                    <i class="fas fa-eraser"></i> Xóa câu trả lời
+                  </button>
                 </div>
-            </div>
+              </div>
             </div>
 
             <div class="voice-sidebar-container">
