@@ -471,5 +471,5 @@ if __name__ == "__main__":
     cleanup_thread = threading.Thread(target=cleanup_task, daemon=True)
     cleanup_thread.start()
     
-    logger.info("Starting Flask server on http://localhost:5000")
-    app.run(debug=False, host='0.0.0.0', port=5000)
+    logger.info("Starting Flask server on http://localhost:8080")
+    app.run(debug=False, host='0.0.0.0', port=8080)

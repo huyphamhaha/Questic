@@ -4,7 +4,7 @@ const loading = document.getElementById("loading");
 const errorDiv = document.getElementById("error");
 const resultsDiv = document.getElementById("analysis-results");
 
-const API_BASE_URL = "http://localhost:5000";
+const API_BASE_URL = "http://localhost:8080";
 
 analyzeBtn.addEventListener("click", async () => {
   const file = cvUpload.files[0];
