@@ -227,7 +227,7 @@ def parse_text_response(text, cv_text):
                 elif key == "muc_tieu_nghe_nghiep":
                     result["cau_truc_va_dinh_dang"]["nhan_xet"] = content
                     result["cau_truc_va_dinh_dang"]["de_xuat"] = (
-                        "Tóm tắt mục tiêu nghề nghiệp trong 2-3 câu, nhấn mạnh giá trị mang lại cho nhà tuyển dụng."
+                        "Nêu rõ mục tiêu nghề nghiệp, nhấn mạnh giá trị mang lại cho nhà tuyển dụng."
                     )
                     result["cau_truc_va_dinh_dang"]["diem"] = calculate_score(
                         content, ["chi tiết", "rõ ràng", "giá trị"], ["dài dòng", "chung chung"], cv_text
@@ -333,46 +333,19 @@ def create_analysis_prompt(cv_text):
     Bạn là một chuyên gia đánh giá CV cao cấp với hơn 15 năm kinh nghiệm trong lĩnh vực tuyển dụng và phát triển nhân sự, chuyên về ngành công nghệ thông tin. Hãy phân tích CV sau đây một cách SÂU SẮC, CHI TIẾT, và CỤ THỂ, đánh giá theo các tiêu chí dưới đây. **Trả về kết quả dưới dạng JSON hợp lệ, tuân thủ cấu trúc được cung cấp. Không trả về văn bản thuần túy. Nếu CV thiếu thông tin, cung cấp đánh giá chi tiết với nhận xét cụ thể, điểm số hợp lý (4-6 cho nội dung cơ bản), và đề xuất cải thiện rõ ràng. Nếu không thể tạo JSON, trả về JSON với trường "error".**
 
     Các tiêu chí đánh giá:
-    1. Thông tin cá nhân: Đánh giá mức độ đầy đủ (tên, email, điện thoại, LinkedIn, GitHub), rõ ràng (dễ đọc, định dạng gọn gàng), và chuyên nghiệp (email như 'ten.ho@gmail.com', không dùng biểu tượng). Ví dụ: Email 'abc123@gmail.com' kém chuyên nghiệp.
-    2. Trình độ học vấn: Đánh giá thông tin trường, ngành, GPA, chứng chỉ (IELTS, TOEIC, Google AI Essentials), và sự liên quan đến vị trí công nghệ thông tin. Kiểm tra cách trình bày, thành tích học tập, và tính nhất quán.
-    3. Kinh nghiệm làm việc: Đánh giá mô tả công việc, thành tựu (định lượng như 'giảm 20% thời gian'), trách nhiệm, và sự liên quan đến ngành. Kiểm tra động từ hành động (thiết kế, triển khai) và tiến trình nghề nghiệp.
-    4. Kỹ năng: Đánh giá sự phân loại (cứng: SQL, Python; mềm: giao tiếp), mức độ thành thạo (thông qua dự án hoặc chứng chỉ), tính hiện đại (Trello, Figma, Draw.io), và minh chứng cụ thể.
-    5. Dự án/Portfolio: Đánh giá mô tả dự án (Jewelry Store Management System, vai trò, kết quả), link GitHub, quy mô, và tác động (ví dụ: phục vụ 100 người dùng). Kiểm tra tính cụ thể và liên quan.
+    1. Thông tin cá nhân
+    2. Trình độ học vấn
+    3. Kinh nghiệm làm việc
+    4. Kỹ năng: Đánh giá sự phân loại, mức độ thành thạo, tính hiện đại, và minh chứng cụ thể.
+    5. Dự án/Portfolio: Đánh giá mô tả dự án ,quy mô, và tác động (ví dụ: phục vụ 100 người dùng). Kiểm tra tính cụ thể và liên quan.
     6. Cấu trúc và định dạng: Đánh giá bố cục (phân chia rõ ràng), font chữ, khoảng cách, và tính dễ đọc. Kiểm tra sự phù hợp với tiêu chuẩn ngành công nghệ thông tin (CV 1-2 trang, thiết kế tối giản).
-    7. Ngôn ngữ và cách diễn đạt: Đánh giá ngữ pháp, chính tả, tính mạch lạc, và từ ngữ chuyên ngành. Kiểm tra lỗi chính tả (ví dụ: 'eyciency' thay vì 'efficiency') và tính súc tích.
-
-    **Cấu trúc JSON trả về:**
-    ```json
-    {{
-        "thong_tin_ca_nhan": {{"diem": 7, "nhan_xet": "Thông tin đầy đủ nhưng email kém chuyên nghiệp.", "de_xuat": "Sử dụng email ten.ho@gmail.com, thêm LinkedIn."}},
-        "trinh_do_hoc_van": {{"diem": 8, "nhan_xet": "GPA 3.5, chứng chỉ Google AI Essentials.", "de_xuat": "Thêm dự án học tập liên quan."}},
-        "kinh_nghiem_lam_viec": {{"diem": 6, "nhan_xet": "Dự án Jewelry Store, nhưng thiếu định lượng.", "de_xuat": "Mô tả kết quả như 'tăng 30% hiệu suất'."}},
-        "ky_nang": {{"diem": 7, "nhan_xet": "Kỹ năng Trello, Figma tốt, nhưng thiếu minh chứng.", "de_xuat": "Liệt kê dự án sử dụng Trello."}},
-        "du_an_portfolio": {{"diem": 6, "nhan_xet": "Dự án Jewelry Store có tiềm năng.", "de_xuat": "Thêm link GitHub chi tiết."}},
-        "cau_truc_va_dinh_dang": {{"diem": 6, "nhan_xet": "Bố cục rõ nhưng mục tiêu dài dòng.", "de_xuat": "Tóm tắt mục tiêu trong 2 câu."}},
-        "ngon_ngu_va_cach_dien_dat": {{"diem": 5, "nhan_xet": "Lỗi chính tả 'eyciency'.", "de_xuat": "Kiểm tra chính tả kỹ hơn."}},
-        "danh_gia_tong_the": {{
-            "diem_trung_binh": 6.5,
-            "danh_gia_chi_tiet": "CV có tiềm năng cho ngành công nghệ thông tin, nhưng cần chi tiết hơn.",
-            "diem_manh": ["Kỹ năng Trello, Figma", "Dự án Jewelry Store"],
-            "diem_yeu": ["Lỗi chính tả", "Thiếu định lượng"],
-            "de_xuat_cai_thien": ["Kiểm tra chính tả", "Định lượng thành tựu", "Thêm link GitHub"],
-            "nhan_xet_chung": "CV phù hợp cho vị trí phân tích nghiệp vụ, cần chỉnh sửa để nổi bật.",
-            "tac_dong_thi_truong": "CV có tiềm năng cạnh tranh nếu bổ sung chi tiết và chứng chỉ."
-        }},
-        "nganh_nghe_phu_hop": [
-            "Phân tích nghiệp vụ - Kỹ năng phân tích tốt.",
-            "Phát triển phần mềm - Dự án Jewelry Store."
-        ],
-        "phan_tich_xu_huong": "Xu hướng tuyển dụng ưu tiên kỹ năng thực tế (Trello, Figma) và chứng chỉ công nghệ."
-    }}
-    ```
+    7. Ngôn ngữ và cách diễn đạt: Đánh giá ngữ pháp, chính tả, tính mạch lạc, và từ ngữ chuyên ngành. Kiểm tra lỗi chính tả và tính súc tích.
 
     Nội dung CV:
     {cv_text}
 
     **Lưu ý**:
-    - Đảm bảo tất cả các trường JSON được điền đầy đủ với nhận xét chi tiết (tối thiểu 50 từ mỗi nhận xét), điểm số hợp lý (1-10, dựa trên mức độ hoàn thiện), và đề xuất cụ thể.
+    - Đảm bảo tất cả các trường JSON được điền đầy đủ với nhận xét chi tiết (tối thiểu 200 từ mỗi nhận xét), điểm số hợp lý (1-10, dựa trên mức độ hoàn thiện), và đề xuất cụ thể.
     - Phân tích xu hướng thị trường lao động công nghệ thông tin, ví dụ: nhu cầu về kỹ năng Trello, Figma, SQL.
     - Nếu CV ngắn, cung cấp đánh giá chi tiết với điểm số 4-6, nhận xét về thiếu sót, và đề xuất cải thiện rõ ràng.
     """

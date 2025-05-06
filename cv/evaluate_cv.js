@@ -54,9 +54,10 @@ analyzeBtn.addEventListener("click", async () => {
 });
 
 function renderAnalysis(analysis) {
-  resultsDiv.innerHTML = "";
+  // Thêm thẻ canvas cho biểu đồ điểm
+  resultsDiv.innerHTML = '<canvas id="scoreChart" height="200"></canvas>';
   if (analysis.error) {
-    resultsDiv.innerHTML = `<p class="text-red-600">${analysis.error}</p>`;
+    resultsDiv.innerHTML += `<p class="text-red-600">${analysis.error}</p>`;
     return;
   }
 
@@ -70,6 +71,55 @@ function renderAnalysis(analysis) {
     { key: "ngon_ngu_va_cach_dien_dat", name: "Ngôn Ngữ và Cách Diễn Đạt" },
   ];
 
+  // Lấy điểm từng mục để vẽ biểu đồ
+  const labels = [];
+  const scores = [];
+  categories.forEach((cat) => {
+    if (analysis[cat.key]) {
+      labels.push(cat.name);
+      scores.push(analysis[cat.key].diem);
+    }
+  });
+
+  // Vẽ biểu đồ nếu có dữ liệu
+  if (labels.length > 0) {
+    setTimeout(() => {
+      const ctx = document.getElementById("scoreChart").getContext("2d");
+      new Chart(ctx, {
+        type: "bar",
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: "Số điểm",
+              data: scores,
+              backgroundColor: "rgba(54, 162, 235, 0.5)",
+              borderColor: "rgba(54, 162, 235, 1)",
+              borderWidth: 1,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            title: {
+              display: true,
+              text: "Biểu đồ số điểm các mục đánh giá CV",
+            },
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              max: 10,
+            },
+          },
+        },
+      });
+    }, 100); // Đảm bảo canvas đã render
+  }
+
+  // Render các mục như cũ
   categories.forEach((cat) => {
     if (analysis[cat.key]) {
       const data = analysis[cat.key];
