@@ -3923,3 +3923,77 @@ Level: In...
 2025-05-06 22:07:13,689 - INFO - Returning results for ID: 4638fcbb-8aeb-47de-abd3-e30ded33d56f
 2025-05-06 22:07:13,690 - INFO - 127.0.0.1 - - [06/May/2025 22:07:13] "GET /results/4638fcbb-8aeb-47de-abd3-e30ded33d56f HTTP/1.1" 200 -
 2025-05-06 22:09:13,637 - INFO - Cleaning up expired result: 4f459230-a019-444d-b802-d284b014357b
+2025-05-06 22:17:12,905 - INFO - Processing uploaded file: Le Loc Quoc Thinh embedded CV.pdf
+2025-05-06 22:17:12,906 - INFO - Extracting text from uploaded PDF
+2025-05-06 22:17:12,929 - DEBUG - Extracted PDF text: ADDITIONAL INFORMATION
+EDUCATION & CERTIFICATES (*)
+PROJECTS (*)
+SUMMARY
+Technical Skills: Vivado - Xilinx, Scilab, Altium, Pspice, STM32CubeIDE, Proteus, Arduino IDE, VScode etc.
+Soft Skills: Teamwor...
+2025-05-06 22:17:12,931 - INFO - Initializing Gemini API
+2025-05-06 22:17:12,932 - INFO - Sending CV analysis request to Gemini API
+2025-05-06 22:17:41,755 - DEBUG - API response: ```json
+{
+  "thong_tin_ca_nhan": {
+    "diem": 8,
+    "nhan_xet": "Thông tin cá nhân đầy đủ, bao gồm tên, email, số điện thoại, địa chỉ, LinkedIn và GitHub. Email sử dụng địa chỉ trường đại học, thể hiện tính chuyên nghiệp và liên kết với học vấn. Định dạng gọn gàng, dễ đọc. Tuy nhiên, nên cân nhắc bổ sung một địa chỉ email cá nhân dễ nhớ hơn bên cạnh email trường đại học để tiện cho việc liên lạc sau khi tốt nghiệp.",
+    "de_xuat": "Bổ sung email cá nhân dạng ten.ho@gmail.com để dễ dàng liên l...
+2025-05-06 22:17:41,757 - WARNING - API returned text instead of JSON, attempting to parse
+2025-05-06 22:17:41,757 - INFO - Parsing text response into JSON
+2025-05-06 22:17:41,758 - DEBUG - Raw response: ```json
+{
+  "thong_tin_ca_nhan": {
+    "diem": 8,
+    "nhan_xet": "Thông tin cá nhân đầy đủ, bao gồm tên, email, số điện thoại, địa chỉ, LinkedIn và GitHub. Email sử dụng địa chỉ trường đại học, thể hiện tính chuyên nghiệp và liên kết với học vấn. Định dạng gọn gàng, dễ đọc. Tuy nhiên, nên cân nhắc bổ sung một địa chỉ email cá nhân dễ nhớ hơn bên cạnh email trường đại học để tiện cho việc liên lạc sau khi tốt nghiệp.",
+    "de_xuat": "Bổ sung email cá nhân dạng ten.ho@gmail.com để dễ dàng liên l...
+2025-05-06 22:17:41,760 - DEBUG - Extracted skills: ['python', 'java', 'python'], projects: ['hardware project'], certifications: ['toeic']
+2025-05-06 22:17:41,760 - DEBUG - Extracted section 'thong_tin_ca_nhan': ...
+2025-05-06 22:17:41,760 - WARNING - No content extracted for section 'thong_tin_ca_nhan', using default
+2025-05-06 22:17:41,761 - DEBUG - Positive keyword 'chuyên nghiệp' found, score +1
+2025-05-06 22:17:41,761 - DEBUG - Positive keyword 'linkedin' found, score +1
+2025-05-06 22:17:41,761 - DEBUG - Positive keyword 'email' found, score +1
+2025-05-06 22:17:41,761 - DEBUG - Negative keyword 'icon' found, score -1
+2025-05-06 22:17:41,762 - DEBUG - Text length < 100, score -1
+2025-05-06 22:17:41,762 - DEBUG - GPA or certification found in CV, score +1
+2025-05-06 22:17:41,762 - DEBUG - Extracted section 'muc_tieu_nghe_nghiep': ...
+2025-05-06 22:17:41,762 - WARNING - No content extracted for section 'muc_tieu_nghe_nghiep', using default
+2025-05-06 22:17:41,763 - DEBUG - Extracted section 'trinh_do_hoc_van': ...
+2025-05-06 22:17:41,763 - WARNING - No content extracted for section 'trinh_do_hoc_van', using default
+2025-05-06 22:17:41,763 - DEBUG - Positive keyword 'gpa' found, score +1
+2025-05-06 22:17:41,764 - DEBUG - Positive keyword 'thành tích' found, score +1
+2025-05-06 22:17:41,764 - DEBUG - Negative keyword 'thiếu' found, score -1
+2025-05-06 22:17:41,765 - DEBUG - Text length < 100, score -1
+2025-05-06 22:17:41,765 - DEBUG - GPA or certification found in CV, score +1
+2025-05-06 22:17:41,765 - DEBUG - Extracted section 'ky_nang': ...
+2025-05-06 22:17:41,765 - WARNING - No content extracted for section 'ky_nang', using default
+2025-05-06 22:17:41,766 - DEBUG - Positive keyword 'cụ thể' found, score +1
+2025-05-06 22:17:41,766 - DEBUG - Text length < 100, score -1
+2025-05-06 22:17:41,766 - DEBUG - GPA or certification found in CV, score +1
+2025-05-06 22:17:41,767 - DEBUG - Extracted section 'kinh_nghiem_lam_viec': ...
+2025-05-06 22:17:41,767 - WARNING - No content extracted for section 'kinh_nghiem_lam_viec', using default
+2025-05-06 22:17:41,767 - DEBUG - Positive keyword 'github' found, score +1
+2025-05-06 22:17:41,768 - DEBUG - Negative keyword 'sơ sài' found, score -1
+2025-05-06 22:17:41,768 - DEBUG - Text length < 100, score -1
+2025-05-06 22:17:41,768 - DEBUG - GPA or certification found in CV, score +1
+2025-05-06 22:17:41,768 - DEBUG - Extracted section 'kien_thuc_diem_manh': ...
+2025-05-06 22:17:41,769 - WARNING - No content extracted for section 'kien_thuc_diem_manh', using default
+2025-05-06 22:17:41,769 - DEBUG - Extracted section 'ngon_ngu_va_cach_dien_dat': ...
+2025-05-06 22:17:41,769 - WARNING - No content extracted for section 'ngon_ngu_va_cach_dien_dat', using default
+2025-05-06 22:17:41,770 - DEBUG - Positive keyword 'chuyên nghiệp' found, score +1
+2025-05-06 22:17:41,770 - DEBUG - Positive keyword 'toeic' found, score +1
+2025-05-06 22:17:41,771 - DEBUG - Positive keyword 'chính xác' found, score +1
+2025-05-06 22:17:41,771 - DEBUG - Text length < 100, score -1
+2025-05-06 22:17:41,771 - DEBUG - GPA or certification found in CV, score +1
+2025-05-06 22:17:41,772 - DEBUG - Extracted section 'so_thich': ...
+2025-05-06 22:17:41,772 - WARNING - No content extracted for section 'so_thich', using default
+2025-05-06 22:17:41,773 - DEBUG - Extracted section 'danh_gia_tong_the': ...
+2025-05-06 22:17:41,773 - WARNING - No content extracted for section 'danh_gia_tong_the', using default
+2025-05-06 22:17:41,773 - DEBUG - Job roles: ['Phát triển phần mềm - Kinh nghiệm với hardware project.']
+2025-05-06 22:17:41,774 - DEBUG - Average score: 6.4
+2025-05-06 22:17:41,774 - INFO - Parsing completed successfully
+2025-05-06 22:17:41,774 - INFO - Analysis completed, result URL: http://localhost:8080/results/40f1a6ec-15e5-45b0-9d70-e6d81e68e825
+2025-05-06 22:17:41,775 - INFO - 127.0.0.1 - - [06/May/2025 22:17:41] "POST /upload HTTP/1.1" 200 -
+2025-05-06 22:17:41,785 - INFO - Returning results for ID: 40f1a6ec-15e5-45b0-9d70-e6d81e68e825
+2025-05-06 22:17:41,786 - INFO - 127.0.0.1 - - [06/May/2025 22:17:41] "GET /results/40f1a6ec-15e5-45b0-9d70-e6d81e68e825 HTTP/1.1" 200 -
+2025-05-06 22:19:13,639 - INFO - Cleaning up expired result: 826b2707-3739-4016-83d5-1d824a1cf85a
